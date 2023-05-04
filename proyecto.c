@@ -4,7 +4,7 @@ Compilador: dev-c++ 5.11
 
 Autores: Basto Manuel, Canche Saul, Malagon Alan, Uch Luis
 
-versión: 1.0
+versión: 1.1
 
 fecha:
 
