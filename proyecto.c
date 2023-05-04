@@ -4,7 +4,7 @@ Compilador: dev-c++ 5.11
 
 Autores: Basto Manuel, Canche Saul, Malagon Alan, Uch Luis
 
-versiÛn: 1.0
+versi√≥n: 1.0
 
 fecha:
 
@@ -26,8 +26,9 @@ void limpiarPantalla();
 void inventario();
 void instrucciones();
 void agregar_material();
+void titulo();
 
-//funciÛn principal
+//funci√≥n principal
 int main() {
     //crear el text de los estilos
     FILE *inventario;
@@ -37,9 +38,22 @@ int main() {
         printf("Error al crear el archivo.");
         return 1;
     }
+    titulo();
     menu();
 }
-
+void titulo()
+{
+    printf("   _____             _       \n");
+    printf("  / ____|           (_)      \n");
+    printf(" | |     _ __   __ _ _ _ __  \n");
+    printf(" | |    | '_ \\ / _` | | '_ \\ \n");
+    printf(" | |____| | | | (_| | | | | |\n");
+    printf("  \\_____|_| |_|\\__, |_|_| |_|\n");
+    printf("                 __/ |       \n");
+    printf("                |___/        \n");
+    printf("\n");
+    printf("            T E X T I L E S   \n");
+}
 void agregar_material() {
     // abrir el archivo de inventario
     FILE *inventario_txt;
@@ -64,7 +78,7 @@ void agregar_material() {
     // agregar el material al archivo de inventario
     fprintf(inventario_txt, "%s;%d;%.2f\n", material.nombre, material.cantidad, material.precio);
 
-    printf("Material agregado con Èxito.\n");
+    printf("Material agregado con √©xito.\n");
 
     // cerrar el archivo de inventario
     fclose(inventario_txt);
@@ -82,14 +96,14 @@ void inventario()
         printf("====================================\n");
         printf("1. Agregar nuevo tipo de material\n");
         printf("2. Actualizar existencias\n");
-        printf("3. Volver al men˙ principal\n");
+        printf("3. Volver al men√∫ principal\n");
         printf("\nElija una opcion (1-3): ");
 
         // Leer la opcion elegida
         fgets(opcionStr, sizeof(opcionStr), stdin);
         sscanf(opcionStr, "%d", &opcion);
 
-        // Validar que la opcion elegida sea v·lida
+        // Validar que la opcion elegida sea v√°lida
         if (opcion < 1 || opcion > 3) {
             printf("Opcion invalida. Por favor, elija una opcion valida.\n");
             continue;
@@ -137,7 +151,7 @@ void menu()
         fgets(opcionStr, sizeof(opcionStr), stdin);
         sscanf(opcionStr, "%d", &opcion);
 
-        // Validar que la opcion elegida sea v·lida
+        // Validar que la opcion elegida sea v√°lida
         if (opcion < 1 || opcion > 7) {
             printf("Opcion invalida. Por favor, elija una opcion valida.\n");
             continue;
@@ -197,7 +211,7 @@ void instrucciones()
         fgets(opcionStr, sizeof(opcionStr), stdin);
         sscanf(opcionStr, "%d", &opcion);
 
-        // Validar que la opcion elegida sea v·lida
+        // Validar que la opcion elegida sea v√°lida
         if (opcion < 1 || opcion > 4) {
             printf("Opcion invalida. Por favor, elija una opcion valida.\n");
             continue;
