@@ -127,6 +127,66 @@ void printInventory() {
 
     fclose(file);
 }
+
+void editMaterial(int id) {
+	FILE *file;
+	FILE *tempFile;
+	struct Material material;
+	int found = 0;
+	
+	file = fopen("inventario.txt", "r");
+	if (file == NULL) {
+		printf("Error al abrir archivo\n");
+		exit(1);
+	}
+	
+	tempFile = tmpfile();
+	if (tempFile == NULL) {
+		printf("Error creando archivo temporal\n");
+		exit(1);
+	}
+	
+	while (fscanf(file, "%d;%[^;];%d;%f\n", &material.id, material.nombre, &material.cantidad, &material.precio) == 4) {
+		if (material.id == id) {
+			found = 1;
+			
+			printf("Editando material con ID %d\n", id);
+			
+			printf("Nombre Actual: %s\n", material.nombre);
+			printf("Ingrese Nuevo nombre: ");
+			scanf("%s", material.nombre);
+			
+			printf("Cantidad Actual: %d\n", material.cantidad);
+			printf("Ingrese Nueva cantidad: ");
+			scanf("%d", &material.cantidad);
+			
+			printf("Precio Actual: %.2f\n", material.precio);
+			printf("Ingrese Precio Nuevo: ");
+			scanf("%f", &material.precio);
+		}
+		fprintf(tempFile, "%d;%s;%d;%.2f\n", material.id, material.nombre, material.cantidad, material.precio);
+	}
+	
+	fclose(file);
+	
+	if (!found) {
+		printf("Material con ID %d no encontrado\n", id);
+		return;
+	}
+	
+	file = fopen("inventario.txt", "w");
+	if (file == NULL) {
+		printf("Error al abrir archivo\n");
+		exit(1);
+	}
+	
+	rewind(tempFile);
+	while (fscanf(tempFile, "%d;%[^;];%d;%f\n", &material.id, material.nombre, &material.cantidad, &material.precio) == 4) {
+		fprintf(file, "%d;%s;%d;%.2f\n", material.id, material.nombre, material.cantidad, material.precio);
+	}
+	
+	fclose(file);
+}
 int num_materiales;
 void inventario()
 {
@@ -170,7 +230,19 @@ void inventario()
 				break;
             case 2:
                 //actualizar_existencia();
-                break;
+				printf("¿Cuantos materiales desea editar? Ingrese 0 para salir: ");
+				scanf("%d", &num_materiales);
+				// clear input buffer
+				while (getchar() != '\n');
+				for (int i = 0; i < num_materiales; i++) {
+					int id;
+					
+					printf("Enter the ID of the material to edit: ");
+					scanf("%d", &id);
+					
+					editMaterial(id);
+				};
+				break;
 			case 3:
 				//Ver inventario
 				printInventory();
