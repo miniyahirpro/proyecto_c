@@ -12,7 +12,6 @@ fecha:
 #include <stdio.h>
 #include<string.h>
 #include<stdlib.h>
-#include<conio.h>
 //definicion de struct
 struct Material{
     char nombre[50];
