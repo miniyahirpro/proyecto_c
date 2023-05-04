@@ -14,6 +14,7 @@ fecha:
 #include<stdlib.h>
 //definicion de struct
 struct Material{
+	int id;
     char nombre[50];
     int cantidad;
     float precio;
@@ -53,36 +54,79 @@ void titulo()
     printf("\n");
     printf("            T E X T I L E S   \n");
 }
-void agregar_material() {
-    // abrir el archivo de inventario
-    FILE *inventario_txt;
-    inventario_txt = fopen("inventario.txt", "a");
-    if (inventario_txt == NULL) {
-        printf("Error al crear el archivo.");
-        return;
-    }
-
-    // obtener los datos del nuevo material
-    struct Material material;
-
-    printf("Ingrese el nombre del material: ");
-    scanf("%s", material.nombre);
-
-    printf("Ingrese la cantidad de %s: ", material.nombre);
-    scanf("%d", &material.cantidad);
-
-    printf("Ingrese el precio unitario de %s: ", material.nombre);
-    scanf("%f", &material.precio);
-
-    // agregar el material al archivo de inventario
-    fprintf(inventario_txt, "%s;%d;%.2f\n", material.nombre, material.cantidad, material.precio);
-
-    printf("Material agregado con exito.\n");
-
-    // cerrar el archivo de inventario
-    fclose(inventario_txt);
+int generateUniqueId() {
+	int id;
+	FILE *file;
+	struct Material material;
+	int found;
+	
+	do {
+		found = 0;
+		id = rand();
+		
+		file = fopen("inventario.txt", "r");
+		if (file != NULL) {
+			while (fscanf(file, "%d;%[^;];%d;%f\n", &material.id, material.nombre, &material.cantidad, &material.precio) == 4) {
+				if (material.id == id) {
+					found = 1;
+					break;
+				}
+			}
+			fclose(file);
+		}
+	} while (found);
+	
+	return id;
 }
 
+void agregar_material() {
+	// abrir el archivo de inventario
+	FILE *inventario_txt;
+	inventario_txt = fopen("inventario.txt", "a");
+	if (inventario_txt == NULL) {
+		printf("Error al crear el archivo.");
+		return;
+	}
+	
+	// obtener los datos del nuevo material
+	struct Material material;
+	
+	material.id = generateUniqueId();
+	
+	printf("Ingrese el nombre del material: ");
+	scanf("%s", material.nombre);
+	
+	printf("Ingrese la cantidad de %s: ", material.nombre);
+	scanf("%d", &material.cantidad);
+	
+	printf("Ingrese el precio unitario de %s: ", material.nombre);
+	scanf("%f", &material.precio);
+	
+	// agregar el material al archivo de inventario
+	fprintf(inventario_txt, "%d;%s;%d;%.2f\n", material.id, material.nombre, material.cantidad, material.precio);
+	
+	printf("Material agregado con exito.\n");
+	
+	// cerrar el archivo de inventario
+	fclose(inventario_txt);
+}
+void printInventory() {
+    FILE *file;
+    struct Material material;
+
+    file = fopen("inventario.txt", "r");
+    if (file == NULL) {
+        printf("Error opening file\n");
+        exit(1);
+    }
+
+    printf("%-10s %-50s %-10s %-10s\n", "ID", "Nombre", "Cantidad", "Precio");
+    while (fscanf(file, "%d;%[^;];%d;%f\n", &material.id, material.nombre, &material.cantidad, &material.precio) == 4) {
+        printf("%-10d %-50s %-10d %-10.2f\n", material.id, material.nombre, material.cantidad, material.precio);
+    }
+
+    fclose(file);
+}
 int num_materiales;
 void inventario()
 {
@@ -95,7 +139,8 @@ void inventario()
         printf("====================================\n");
         printf("1. Agregar nuevo tipo de material\n");
         printf("2. Actualizar existencias\n");
-        printf("3. Volver al menÃº principal\n");
+		printf("3. Ver inventario\n"); 
+        printf("4. Volver al menÃº principal\n");
         printf("\nElija una opcion (1-3): ");
 
         // Leer la opcion elegida
@@ -115,7 +160,7 @@ void inventario()
         // Ejecutar la accion correspondiente a la opcion elegida
         switch(opcion) {
             case 1:				
-				printf("¿Cuantos materiales desea añadir?");
+				printf("¿Cuantos materiales desea añadir? Ingrese 0 para salir: ");
 				scanf("%d", &num_materiales);
 				// clear input buffer
 				while (getchar() != '\n');
@@ -126,7 +171,11 @@ void inventario()
             case 2:
                 //actualizar_existencia();
                 break;
-            case 3:
+			case 3:
+				//Ver inventario
+				printInventory();
+				break;
+            case 4:
                 //salida();
                 break;
         }
