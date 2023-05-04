@@ -4,7 +4,7 @@ Compilador: dev-c++ 5.11
 
 Autores: Basto Manuel, Canche Saul, Malagon Alan, Uch Luis
 
-versión: 1.1
+versiÃ³n: 1.1
 
 fecha:
 
@@ -12,6 +12,7 @@ fecha:
 #include <stdio.h>
 #include<string.h>
 #include<stdlib.h>
+#include <locale.h>
 //definicion de struct
 struct Material{
 	int id;
@@ -27,9 +28,11 @@ void inventario();
 void instrucciones();
 void agregar_material();
 void titulo();
+void consumo_express();
 
-//función principal
+//funciÃ³n principal
 int main() {
+	setlocale(LC_CTYPE, "Spanish");
     //crear el text de los estilos
     FILE *inventario;
     //abrir el archivo
@@ -200,14 +203,14 @@ void inventario()
         printf("1. Agregar nuevo tipo de material\n");
         printf("2. Actualizar existencias\n");
 		printf("3. Ver inventario\n"); 
-        printf("4. Volver al menú principal\n");
+        printf("4. Volver al menÃº principal\n");
         printf("\nElija una opcion (1-4): ");
 
         // Leer la opcion elegida
         fgets(opcionStr, sizeof(opcionStr), stdin);
         sscanf(opcionStr, "%d", &opcion);
 
-        // Validar que la opcion elegida sea válida
+        // Validar que la opcion elegida sea vÃ¡lida
         if (opcion < 1 || opcion > 4) {
             printf("Opcion invalida. Por favor, elija una opcion valida.\n");
             continue;
@@ -220,7 +223,7 @@ void inventario()
         // Ejecutar la accion correspondiente a la opcion elegida
         switch(opcion) {
             case 1:				
-				printf("�Cuantos materiales desea a�adir? Ingrese 0 para salir: ");
+				printf("¿Cuantos materiales desea añadir? Ingrese 0 para salir: ");
 				scanf("%d", &num_materiales);
 				// clear input buffer
 				while (getchar() != '\n');
@@ -230,7 +233,7 @@ void inventario()
 				break;
             case 2:
                 //actualizar_existencia();
-				printf("�Cuantos materiales desea editar? Ingrese 0 para salir: ");
+				printf("¿Cuantos materiales desea editar? Ingrese 0 para salir: ");
 				scanf("%d", &num_materiales);
 				// clear input buffer
 				while (getchar() != '\n');
@@ -278,7 +281,7 @@ void menu()
         fgets(opcionStr, sizeof(opcionStr), stdin);
         sscanf(opcionStr, "%d", &opcion);
 
-        // Validar que la opcion elegida sea válida
+        // Validar que la opcion elegida sea vÃ¡lida
         if (opcion < 1 || opcion > 7) {
             printf("Opcion invalida. Por favor, elija una opcion valida.\n");
             continue;
@@ -338,7 +341,7 @@ void instrucciones()
         fgets(opcionStr, sizeof(opcionStr), stdin);
         sscanf(opcionStr, "%d", &opcion);
 
-        // Validar que la opcion elegida sea válida
+        // Validar que la opcion elegida sea vÃ¡lida
         if (opcion < 1 || opcion > 4) {
             printf("Opcion invalida. Por favor, elija una opcion valida.\n");
             continue;
@@ -372,6 +375,50 @@ void instrucciones()
                 break;
         }
     }
+}
+
+void consumo_express(){
+	//definición de variables
+	int opcion=0,i;
+	char opcionstr[10];
+		
+	while (opcion != 4){
+		printf("  ====================================\n");
+    		printf("        Consumo express       \n");
+    		printf("  ====================================\n");
+    		printf("  1. Usar un estilo de prenda predeterminado \n");
+    		printf("  2. Calcular el consumo de una prenda particular \n");
+		printf("  3. Ver instrucciones de uso \n"); 
+    		printf("  4. salir\n");
+    		printf("  \nElija una opcion (1-4):  ");
+    	
+    	fgets(opcionstr, sizeof(opcionstr), stdin);
+        sscanf(opcionstr, "%d", &opcion);
+        
+        if (opcion < 1 || opcion > 4) {
+            printf("  Opcion invalida. Por favor, elija una opcion valida.\n");
+            continue;
+        }
+        
+        limpiarPantalla();
+        printf("Bienvenido!\n\n");
+        
+        switch (opcion){
+        	case 1:
+        		printf(" Las prendas predeterminadas son: \n");
+        		printf("\n  opción 1: \n  CAMISETA BÁSICA \n");
+        		printf("    __   __" );
+        		printf("\n  /|  `-´  |\\ " );
+        		printf("\n /_|       |_\\ " );
+        		printf("\n   |       |" );
+        		printf("\n   |       |" );
+        		printf("\n   |_______|\n" );
+        		printf("\n Tamaños: Chica, mediana y grande \n ");
+        		
+        		
+		}
+	}
+  
 }
 
 
