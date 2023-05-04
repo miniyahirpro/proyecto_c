@@ -77,13 +77,13 @@ void agregar_material() {
     // agregar el material al archivo de inventario
     fprintf(inventario_txt, "%s;%d;%.2f\n", material.nombre, material.cantidad, material.precio);
 
-    printf("Material agregado con Ã©xito.\n");
+    printf("Material agregado con exito.\n");
 
     // cerrar el archivo de inventario
     fclose(inventario_txt);
 }
 
-
+int num_materiales;
 void inventario()
 {
     int opcion = 0;
@@ -114,9 +114,15 @@ void inventario()
 
         // Ejecutar la accion correspondiente a la opcion elegida
         switch(opcion) {
-            case 1:
-                agregar_material();
-                break;
+            case 1:				
+				printf("¿Cuantos materiales desea añadir?");
+				scanf("%d", &num_materiales);
+				// clear input buffer
+				while (getchar() != '\n');
+				for (int i = 0; i < num_materiales; i++) {
+					agregar_material();
+				};
+				break;
             case 2:
                 //actualizar_existencia();
                 break;
