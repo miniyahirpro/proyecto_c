@@ -201,14 +201,14 @@ void inventario()
         printf("2. Actualizar existencias\n");
 		printf("3. Ver inventario\n"); 
         printf("4. Volver al menú principal\n");
-        printf("\nElija una opcion (1-3): ");
+        printf("\nElija una opcion (1-4): ");
 
         // Leer la opcion elegida
         fgets(opcionStr, sizeof(opcionStr), stdin);
         sscanf(opcionStr, "%d", &opcion);
 
         // Validar que la opcion elegida sea válida
-        if (opcion < 1 || opcion > 3) {
+        if (opcion < 1 || opcion > 4) {
             printf("Opcion invalida. Por favor, elija una opcion valida.\n");
             continue;
         }
@@ -249,7 +249,8 @@ void inventario()
 				break;
             case 4:
                 //salida();
-                break;
+				limpiarPantalla();
+				menu();
         }
     }
 
