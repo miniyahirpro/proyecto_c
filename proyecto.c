@@ -22,6 +22,18 @@ struct Material{
     float precio;
 } Material;
 
+struct detalles_prenda
+{
+    float tela;
+    float hilo;
+    float bies;
+    float elastico;
+    int botones;
+    int etiquetas;
+};
+//variables globales
+int num_materiales;
+//delcaracion de funciones
 void menu();
 void limpiarPantalla();
 void inventario();
@@ -33,7 +45,7 @@ void consumo_express();
 //funcion principal
 int main() {
 	setlocale(LC_CTYPE, "Spanish");
-    //crear el text de los estilos
+    //crear el text del inventario
     FILE *inventario;
     //abrir el archivo
     inventario = fopen("inventario.txt", "a");
@@ -41,9 +53,43 @@ int main() {
         printf("Error al crear el archivo.");
         return 1;
     }
+    //abre el menu principal
     menu();
 }
 
+//funciones de ayuda
+void limpiarPantalla() {
+    // Se utiliza el comando 'clear' en sistemas tipo Unix, y 'cls' en sistemas tipo Windows
+    #ifdef _WIN32
+        system("cls");
+    #else
+        system("clear");
+    #endif
+}
+
+void pulseConitnuar()
+{
+    printf("\nPulse cualquier tecla para continuar...\n");
+    getch();
+}
+/*INICIA FUNCIONES PRINCIPALES*/
+/*-------------------------------------------------------------------------
+        FUNCIONES DEL MENU PRINCIPAL Y TITULO
+--------------------------------------------------------------------------*/
+void titulo()
+{
+    printf("   _____             _       \n");
+    printf("  / ____|           (_)      \n");
+    printf(" | |     _ __   __ _ _ _ __  \n");
+    printf(" | |    | '_ \\ / _` | | '_ \\ \n");
+    printf(" | |____| | | | (_| | | | | |\n");
+    printf("  \\_____|_| |_|\\__, |_|_| |_|\n");
+    printf("                 __/ |       \n");
+    printf("                |___/        \n");
+    printf("\n");
+    printf("            T E X T I L E S   \n");
+}
+//menu principal
 void menu()
 {
     int opcion = 0;
@@ -81,8 +127,10 @@ void menu()
         // Ejecutar la accion correspondiente a la opcion elegida
         switch(opcion) {
             case 1:
+                agregar_cliente();
                 break;
             case 2:
+                agregar_tipo_prenda();
                 break;
             case 3:
                 break;
@@ -103,19 +151,140 @@ void menu()
 
 
 }
-void titulo()
+
+/*-------------------------------------------------------------------------
+        FUNCION 1.- Agregar cliente.
+--------------------------------------------------------------------------*/
+void agregar_cliente()
 {
-    printf("   _____             _       \n");
-    printf("  / ____|           (_)      \n");
-    printf(" | |     _ __   __ _ _ _ __  \n");
-    printf(" | |    | '_ \\ / _` | | '_ \\ \n");
-    printf(" | |____| | | | (_| | | | | |\n");
-    printf("  \\_____|_| |_|\\__, |_|_| |_|\n");
-    printf("                 __/ |       \n");
-    printf("                |___/        \n");
-    printf("\n");
-    printf("            T E X T I L E S   \n");
+    fflush(stdin);
+    char nombre_cliente[50];
+    limpiarPantalla();
+    printf("Ingrese el nombre del cliente: ");
+    gets(nombre_cliente);
+    printf("Cliente agregado con exito.\n");
+    pulseConitnuar();
+    volver_menu();
 }
+/*-------------------------------------------------------------------------
+        FUNCION 2.- Agregar tipo de prenda.
+--------------------------------------------------------------------------*/
+void agregar_tipo_prenda()
+{
+    //variables
+    int id;
+    //mensjae bienvenida
+    printf("====================================\n");
+    printf("      NUEVO TIPO DE PRENDA       \n");
+    printf("====================================\n");
+    printf("Ingrese el id del tipo de prenda: ");
+    scanf("%i", &id);
+    ingreso_talla("CH");
+    ingreso_talla("M");
+    ingreso_talla("L");
+    ingreso_talla("XL");
+    pulseConitnuar();
+    volver_menu();
+}
+void ingreso_talla(char talla[5])
+{
+    struct detalles_prenda prenda;
+    printf("\tDATOS DE LA TALLA %s\n", talla);
+    printf("Ingrese la cantidad de tela para la talla %s:", talla);
+    scanf("%f", &prenda.tela);
+    printf("Ingrese la cantidad de hilo para la talla %s:", talla);
+    scanf("%f", &prenda.hilo);
+    printf("Ingrese la cantidad de bies para la talla %s:", talla);
+    scanf("%f", &prenda.bies);
+    printf("Ingrese la cantidad de elastico para la talla %s:", talla);
+    scanf("%f", &prenda.elastico);
+    printf("Ingrese la cantidad de botones para la talla %s:", talla);
+    scanf("%i", &prenda.botones);
+    printf("Ingrese la cantidad de etiquetas para la talla %s:", talla);
+    scanf("%f", &prenda.etiquetas);
+    printf("Datos de la talla guardada con exito.\n\n");
+
+
+
+}
+/*-------------------------------------------------------------------------
+        FUNCION 3.- Calcular consumo.
+--------------------------------------------------------------------------*/
+/*-------------------------------------------------------------------------
+        FUNCION 4.- inventario.
+--------------------------------------------------------------------------*/
+//menu de opciones de inventario.
+void inventario()
+{
+    int opcion = 0;
+    int i;
+    char opcionStr[10];
+    while (opcion != 4) {
+        printf("\n");
+        printf("====================================\n");
+        printf("      INVENTARIO       \n");
+        printf("====================================\n");
+        printf("1. Agregar nuevo tipo de material\n");
+        printf("2. Actualizar existencias\n");
+		printf("3. Ver inventario\n");
+        printf("4. Volver al menú principal\n");
+        printf("\nElija una opcion (1-4): ");
+
+        // Leer la opcion elegida
+        fgets(opcionStr, sizeof(opcionStr), stdin);
+        sscanf(opcionStr, "%d", &opcion);
+
+        // Validar que la opcion elegida sea válida
+        if (opcion < 1 || opcion > 4) {
+            printf("Opcion invalida. Por favor, elija una opcion valida.\n");
+            continue;
+        }
+
+        // Limpiar la pantalla
+        limpiarPantalla();
+        printf("Bienvenido!\n\n");
+
+        // Ejecutar la accion correspondiente a la opcion elegida
+        switch(opcion) {
+            case 1:
+				printf("¿Cuantos materiales desea añadir? Ingrese 0 para salir: ");
+				scanf("%d", &num_materiales);
+				// clear input buffer
+				while (getchar() != '\n');
+				for (i = 0; i < num_materiales; i++) {
+				    //retorno al menu de opciones
+                    limpiarPantalla();
+					agregar_material();
+				};
+				break;
+            case 2:
+                //actualizar_existencia();
+				printf("¿Cuantos materiales desea editar? Ingrese 0 para salir: ");
+				scanf("%d", &num_materiales);
+				// clear input buffer
+				while (getchar() != '\n');
+				for (i = 0; i < num_materiales; i++) {
+					int id;
+
+					printf("Ingresa el id del material a editar: ");
+					scanf("%d", &id);
+
+					editMaterial(id);
+				};
+				break;
+			case 3:
+				//Ver inventario
+				printInventory();
+				break;
+            case 4:
+                //salida();
+				volver_menu();
+        }
+        limpiarPantalla();
+    }
+
+}
+
 int generateUniqueId() {
 	int id;
 	FILE *file;
@@ -251,93 +420,9 @@ void editMaterial(int id) {
 
 	fclose(file);
 }
-int num_materiales;
-//menu de opciones de inventario.
-void inventario()
-{
-    int opcion = 0;
-    int i;
-    char opcionStr[10];
-    while (opcion != 4) {
-        printf("\n");
-        printf("====================================\n");
-        printf("      INVENTARIO       \n");
-        printf("====================================\n");
-        printf("1. Agregar nuevo tipo de material\n");
-        printf("2. Actualizar existencias\n");
-		printf("3. Ver inventario\n");
-        printf("4. Volver al menú principal\n");
-        printf("\nElija una opcion (1-4): ");
 
-        // Leer la opcion elegida
-        fgets(opcionStr, sizeof(opcionStr), stdin);
-        sscanf(opcionStr, "%d", &opcion);
 
-        // Validar que la opcion elegida sea válida
-        if (opcion < 1 || opcion > 4) {
-            printf("Opcion invalida. Por favor, elija una opcion valida.\n");
-            continue;
-        }
 
-        // Limpiar la pantalla
-        limpiarPantalla();
-        printf("Bienvenido!\n\n");
-
-        // Ejecutar la accion correspondiente a la opcion elegida
-        switch(opcion) {
-            case 1:
-				printf("¿Cuantos materiales desea añadir? Ingrese 0 para salir: ");
-				scanf("%d", &num_materiales);
-				// clear input buffer
-				while (getchar() != '\n');
-				for (i = 0; i < num_materiales; i++) {
-				    //retorno al menu de opciones
-                    limpiarPantalla();
-					agregar_material();
-				};
-				break;
-            case 2:
-                //actualizar_existencia();
-				printf("¿Cuantos materiales desea editar? Ingrese 0 para salir: ");
-				scanf("%d", &num_materiales);
-				// clear input buffer
-				while (getchar() != '\n');
-				for (i = 0; i < num_materiales; i++) {
-					int id;
-
-					printf("Ingresa el id del material a editar: ");
-					scanf("%d", &id);
-
-					editMaterial(id);
-				};
-				break;
-			case 3:
-				//Ver inventario
-				printInventory();
-				break;
-            case 4:
-                //salida();
-				volver_menu();
-        }
-    }
-
-}
-
-//funciones de ayuda
-void limpiarPantalla() {
-    // Se utiliza el comando 'clear' en sistemas tipo Unix, y 'cls' en sistemas tipo Windows
-    #ifdef _WIN32
-        system("cls");
-    #else
-        system("clear");
-    #endif
-}
-
-void pulseConitnuar()
-{
-    printf("\nPulse cualquier tecla para continuar...\n");
-    getch();
-}
 
 //menu de instrucciones opcion 6
 void instrucciones()
