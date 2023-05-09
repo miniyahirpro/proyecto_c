@@ -84,8 +84,23 @@ void pulseConitnuar()
     printf("\nPulse cualquier tecla para continuar...\n");
     getch();
 }
+void titulo()
+{
+    printf("   _____             _       \n");
+    printf("  / ____|           (_)      \n");
+    printf(" | |     _ __   __ _ _ _ __  \n");
+    printf(" | |    | '_ \\ / _` | | '_ \\ \n");
+    printf(" | |____| | | | (_| | | | | |\n");
+    printf("  \\_____|_| |_|\\__, |_|_| |_|\n");
+    printf("                 __/ |       \n");
+    printf("                |___/        \n");
+    printf("\n");
+    printf("            T E X T I L E S   \n");
+}
 /*INICIA FUNCIONES PRINCIPALES*/
-
+/*-------------------------------------------------------------------------
+        FUNCION VERIFICAR USUARIO
+--------------------------------------------------------------------------*/
 void usuario()
 {
     int opcion=0;
@@ -171,19 +186,7 @@ void usuario()
 /*-------------------------------------------------------------------------
         FUNCIONES DEL MENU DEL ADMIN
 --------------------------------------------------------------------------*/
-void titulo()
-{
-    printf("   _____             _       \n");
-    printf("  / ____|           (_)      \n");
-    printf(" | |     _ __   __ _ _ _ __  \n");
-    printf(" | |    | '_ \\ / _` | | '_ \\ \n");
-    printf(" | |____| | | | (_| | | | | |\n");
-    printf("  \\_____|_| |_|\\__, |_|_| |_|\n");
-    printf("                 __/ |       \n");
-    printf("                |___/        \n");
-    printf("\n");
-    printf("            T E X T I L E S   \n");
-}
+
 //menu principal
 void menu()
 {
