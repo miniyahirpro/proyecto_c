@@ -31,6 +31,15 @@ struct detalles_prenda
     int botones;
     int etiquetas;
 };
+struct consumo_lote
+{
+    float tela;
+    float hilo;
+    float bies;
+    float elastico;
+    int botones;
+    int etiquetas;
+};
 //variables globales
 int num_materiales;
 //delcaracion de funciones
@@ -44,6 +53,7 @@ void consumo_express();
 
 //funcion principal
 int main() {
+    int tipo_usuario;
 	setlocale(LC_CTYPE, "Spanish");
     //crear el text del inventario
     FILE *inventario;
@@ -53,8 +63,10 @@ int main() {
         printf("Error al crear el archivo.");
         return 1;
     }
-    //abre el menu principal
+    //verificacion tipo de usuario
     menu();
+    /*usuario(&tipo_usuario);
+    tipo_menu(tipo_usuario);*/
 }
 
 //funciones de ayuda
@@ -73,8 +85,91 @@ void pulseConitnuar()
     getch();
 }
 /*INICIA FUNCIONES PRINCIPALES*/
+
+void usuario()
+{
+    int opcion=0;
+    int password;
+    int error=0;
+    while(opcion!=5)
+    {
+        titulo();
+        printf("Bienvenido a Stitch Mate, por favor selecione su perfil:\n");
+        printf("1. Admin\n");
+        printf("2. Usuario\n");
+        printf("3. Almacenista\n");
+        printf("4. Contador\n");
+        printf("5. Salir del programa\n");
+        printf("\nElija una opcion (1-5): ");
+        scanf("%i", &opcion);
+        printf("Por favor, ingrese la contraseña: ");
+        scanf("%i", &password);
+        switch(opcion)
+        {
+            case 1:
+                if(password==123)
+                {
+                    limpiarPantalla();
+                    menu_admin();
+                }
+                else
+                {
+                    error=1;
+                }
+                break;
+            case 2:
+                if(password==123)
+                {
+                    limpiarPantalla();
+                    menu_usuario();
+                }
+                else
+                {
+                    error=1;
+                }
+                break;
+            case 3:
+                if(password==123)
+                {
+                    limpiarPantalla();
+                    menu_usuario();
+                }
+                else
+                {
+                    error=1;
+                }
+                break;
+            case 4:
+                if(password==123)
+                {
+                    limpiarPantalla();
+                    menu_usuario();
+                }
+                else
+                {
+                    error=1;
+                }
+                break;
+            case 5:
+                break;
+            default:
+                printf("Opcion invalida. Por favor, elija una opcion valida.\n");
+                pulseConitnuar();
+
+
+        }
+        if (error==1)
+        {
+            printf("Contraseña invalida. Por favor, elija una opcion valida.\n");
+            pulseConitnuar();
+
+        }
+
+    }
+
+}
 /*-------------------------------------------------------------------------
-        FUNCIONES DEL MENU PRINCIPAL Y TITULO
+        FUNCIONES DEL MENU DEL ADMIN
 --------------------------------------------------------------------------*/
 void titulo()
 {
@@ -92,8 +187,7 @@ void titulo()
 //menu principal
 void menu()
 {
-    int opcion = 0;
-    char opcionStr[10];
+    int opcion=0;
     while (opcion != 7) {
         titulo();
         printf("\n");
@@ -107,12 +201,9 @@ void menu()
         printf("5. Consumo express\n");
         printf("6. Instrucciones\n");
         printf("7. Salir\n");
+        //carga de opcion
         printf("\nElija una opcion (1-7): ");
-
-        // Leer la opcion elegida
-        fgets(opcionStr, sizeof(opcionStr), stdin);
-        sscanf(opcionStr, "%d", &opcion);
-
+        scanf("%i", &opcion);
         // Validar que la opcion elegida sea vÃ¡lida
         if (opcion < 1 || opcion > 7) {
             printf("Opcion invalida. Por favor, elija una opcion valida.\n");
@@ -210,6 +301,28 @@ void ingreso_talla(char talla[5])
 /*-------------------------------------------------------------------------
         FUNCION 3.- Calcular consumo.
 --------------------------------------------------------------------------*/
+void calcular_consumo()
+{
+    int id;
+    printf("====================================\n");
+    printf("      CALCULAR CONSUMO       \n");
+    printf("====================================\n");
+    printf("Por favor, ingrese el ID del estilo de la prenda:");
+    scanf("%i", &id);
+    proceso_calculo();
+    imprimir_reporte();
+    pulseConitnuar();
+}
+void proceso_calculo()
+{
+    struct consumo_lote lote;
+
+}
+
+void imprimir_reporte()
+{
+    printf("hola");
+}
 /*-------------------------------------------------------------------------
         FUNCION 4.- inventario.
 --------------------------------------------------------------------------*/
