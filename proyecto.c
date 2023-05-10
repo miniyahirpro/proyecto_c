@@ -24,6 +24,8 @@ struct Material{
 
 struct detalles_prenda
 {
+	int id;
+	char talla[5]
     float tela;
     float hilo;
     float bies;
@@ -51,13 +53,20 @@ int main() {
     int tipo_usuario;
 	setlocale(LC_CTYPE, "Spanish");
     //crear el text del inventario
-    FILE *inventario;
-    //abrir el archivo
-    inventario = fopen("inventario.txt", "a");
-    if (inventario == NULL) {
-        printf("Error al crear el archivo.");
-        return 1;
-    }
+	// abrir el archivo de inventario
+	FILE *inventario_txt;
+	inventario_txt = fopen("inventario.txt", "a");
+	if (inventario_txt == NULL) {
+		printf("Error al crear el archivo.");
+		return;
+	}
+	// abrir el archivo de estilos
+	FILE *inventario_txt;
+	inventario_txt = fopen("estilos.txt", "a");
+	if (inventario_txt == NULL) {
+		printf("Error al crear el archivo.");
+		return;
+	}
     usuario();
     return 0;
 }
@@ -396,35 +405,44 @@ void agregar_tipo_prenda()
     printf("====================================\n");
     printf("      NUEVO TIPO DE PRENDA       \n");
     printf("====================================\n");
-    printf("Ingrese el id del tipo de prenda: ");
-    scanf("%i", &id);
-    ingreso_talla("CH");
-    ingreso_talla("M");
-    ingreso_talla("L");
-    ingreso_talla("XL");
-    pulseConitnuar();
-    limpiarPantalla();
+	printf("Ingrese el id del tipo de prenda: ");
+	scanf("%i", &id);
+	ingreso_talla(id, "CH");
+	ingreso_talla(id, "M");
+	ingreso_talla(id, "L");
+	ingreso_talla(id, "XL");
+	pulseConitnuar();
+	limpiarPantalla();
 }
-void ingreso_talla(char talla[5])
+void ingreso_talla(int id, char talla[5])
 {
-    struct detalles_prenda prenda;
-    printf("\tDATOS DE LA TALLA %s\n", talla);
-    printf("Ingrese la cantidad de tela para la talla %s:", talla);
-    scanf("%f", &prenda.tela);
-    printf("Ingrese la cantidad de hilo para la talla %s:", talla);
-    scanf("%f", &prenda.hilo);
-    printf("Ingrese la cantidad de bies para la talla %s:", talla);
-    scanf("%f", &prenda.bies);
-    printf("Ingrese la cantidad de elastico para la talla %s:", talla);
-    scanf("%f", &prenda.elastico);
-    printf("Ingrese la cantidad de botones para la talla %s:", talla);
-    scanf("%i", &prenda.botones);
-    printf("Ingrese la cantidad de etiquetas para la talla %s:", talla);
-    scanf("%f", &prenda.etiquetas);
-    printf("Datos de la talla guardada con exito.\n\n");
-
-
-
+	// abrir el archivo de inventario
+	FILE *estilos_txt; 
+	estilos_txt = fopen("estilos.txt", "a");
+	if (estilos_txt == NULL) {
+		printf("Error al crear el archivo.");
+		return;
+	}
+	struct detalles_prenda prenda;
+	printf("\tDATOS DE LA TALLA %s\n", talla);
+	printf("Ingrese la cantidad de tela para la talla %s:", talla);
+	scanf("%f", &prenda.tela);
+	printf("Ingrese la cantidad de hilo para la talla %s:", talla);
+	scanf("%f", &prenda.hilo);
+	printf("Ingrese la cantidad de bies para la talla %s:", talla);
+	scanf("%f", &prenda.bies);
+	printf("Ingrese la cantidad de elastico para la talla %s:", talla);
+	scanf("%f", &prenda.elastico);
+	printf("Ingrese la cantidad de botones para la talla %s:", talla);
+	scanf("%i", &prenda.botones);
+	printf("Ingrese la cantidad de etiquetas para la talla %s:", talla);
+	scanf("%f", &prenda.etiquetas);
+	
+	fprintf(estilos_txt, "%d %s %.2f %.2f %.2f %.2f %d %d\n", id, talla, prenda.tela, prenda.hilo, prenda.bies, prenda.elastico, prenda.botones, prenda.etiquetas);
+	
+	fclose(estilos_txt);
+	
+	printf("Datos de la talla guardada con exito.\n\n");
 }
 /*-------------------------------------------------------------------------
         FUNCION 3.- Calcular consumo.
