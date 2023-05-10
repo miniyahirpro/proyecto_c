@@ -654,9 +654,8 @@ void editMaterial(int id) {
 	fclose(file);
 }
 /*-------------------------------------------------------------------------
-        FUNCION 45.- caolcular consumo express
+        FUNCION 45.- calcular consumo express
 --------------------------------------------------------------------------*/
-
 void calcular_consumo_express()
 {
     int opcion=0;
@@ -722,15 +721,15 @@ void prendas_predeterminadas()
         // Ejecutar la accion correspondiente a la opcion elegida
         switch(opcion) {
             case 1:
-                playera_simple();
+                /*playera_simple();*/
                 break;
             case 2:
-                playera_polo();
+                /*playera_polo();*/
                 break;
             case 3:
-                short_deportivo();
+                /*short_deportivo();*/
             case 4:
-                pantalon_mezclilla();
+                /*pantalon_mezclilla();*/
                 break;
         }
     }
