@@ -23,7 +23,8 @@ En resumen, el producto de software ofrecerá las siguientes funcionalidades:
 6. Registro de ingreso de material.
 
 La aplicación será fácil de usar y contará con una interfaz amigable para el usuario. También se asegurará de que los datos ingresados por los usuarios sean precisos y estén bien estructurados.
-
+## Trabajo
+git checkout -b "nombre" 
 
 ## Uso
 ## Licencia
