@@ -13,7 +13,7 @@ fecha:
 #include<string.h>
 #include<stdlib.h>
 #include <locale.h>
-#include<conio.h>
+#include <conio.h>
 //definicion de struct
 struct Material{
 	int id;
@@ -25,7 +25,7 @@ struct Material{
 struct detalles_prenda
 {
 	int id;
-	char talla[5]
+	char talla[5];
     float tela;
     float hilo;
     float bies;
@@ -61,9 +61,9 @@ int main() {
 		return;
 	}
 	// abrir el archivo de estilos
-	FILE *inventario_txt;
-	inventario_txt = fopen("estilos.txt", "a");
-	if (inventario_txt == NULL) {
+	FILE *estilos_txt;
+	estilos_txt = fopen("estilos.txt", "a");
+	if (estilos_txt == NULL) {
 		printf("Error al crear el archivo.");
 		return;
 	}
