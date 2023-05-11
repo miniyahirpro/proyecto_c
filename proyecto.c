@@ -38,12 +38,34 @@ struct detalles_prenda
 int num_materiales;
 char tallas[NUM_TALLAS][3]={"CH", "M", "L", "XL"};
 //delcaracion de funciones
+
+//declaracion de menus
 void menu();
+void menu_almacenista();
+void menu_contador();
+void menu_usuario();
+//declaracion funciones globales
 void limpiarPantalla();
+void pulseConitnuar();
+void titulo();
+//funciones de menu principal
 void inventario();
 void instrucciones();
+void inst_generales();
+void inst_ingreso();
+void inst_inventario();
+void agregar_cliente();
+void agregar_tipo_prenda();
+void calcular_consumo_express();
+void imprimir_reporte_express();
+void prendas_predeterminadas();
+void playera_simple();
+void playera_polo();
+void short_deportivo();
+void pantalon_mezclilla();
+void prendas_particulares();
 void agregar_material();
-void titulo();
+
 void consumo_express();
 void menu_usuario();
 void menu_almacenista();
@@ -62,6 +84,13 @@ int main() {
         printf("Error al crear el archivo.");
         return 1;
     }
+	// abrir el archivo de estilos
+	FILE *estilos_txt;
+	estilos_txt = fopen("estilos.txt", "a");
+	if (estilos_txt == NULL) {
+		printf("Error al crear el archivo.");
+		return;
+	}
     usuario();
     return 0;
 }
@@ -434,8 +463,6 @@ void ingreso_talla(int id, char talla[5])
     scanf("%i", &prenda.botones);
     printf("Ingrese la cantidad de etiquetas para la talla %s:", talla);
     scanf("%f", &prenda.etiquetas);
-    printf("Datos de la talla guardada con exito.\n\n");
-
 	// Guardar en archivo 
 	fprintf(estilos_txt, "%d %s %.2f %.2f %.2f %.2f %d %d\n", id, talla, prenda.tela, prenda.hilo, prenda.bies, prenda.elastico, prenda.botones, prenda.etiquetas);
 	
@@ -494,7 +521,7 @@ void inventario()
         // Ejecutar la accion correspondiente a la opcion elegida
         switch(opcion) {
             case 1:
-				printf("¿Cuantos materiales desea añadir? Ingrese 0 para salir: ");
+				printf("¿Cuantos materiales desea a�adir? Ingrese 0 para salir: ");
 				scanf("%d", &num_materiales);
 				// clear input buffer
 				while (getchar() != '\n');
@@ -541,7 +568,7 @@ int generateUniqueId() {
 		found = 0;
 		id = rand();
 
-		file = fopen("inventario.txt", "r");
+		file = fopen("inventario.txt", "a");
 		if (file != NULL) {
 			while (fscanf(file, "%d;%[^;];%d;%f\n", &material.id, material.nombre, &material.cantidad, &material.precio) == 4) {
 				if (material.id == id) {
@@ -950,7 +977,7 @@ void inst_generales()
     printf("           INSTRUCCIONES GENERALES            \n");
     printf("====================================\n");
     printf("1.- Para seleccionar una opción únicamente se necesita ingresar el número de opción asociada.\n");
-    printf("2.-Puede volver al menu principal desde cualquier menú seleccionando la opcion asociada.\n ");
+    printf("2.-Puede volver al menu principal desde cualquier menu seleccionando la opcion asociada.\n ");
     printf("3.-Para salir de la aplicación, se debe seleccionar la opción 7 del menú principal.");
 }
 void inst_inventario()
@@ -964,5 +991,3 @@ void inst_inventario()
     printf("Actualizar existencias\n");
     printf("Apartado para modificar el numero de existencias totales de algun tipo de material,\nse debe especificar el ID del material y el nuevo número de existencias.");
 }
-
-
