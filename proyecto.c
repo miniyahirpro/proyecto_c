@@ -65,13 +65,16 @@ void short_deportivo();
 void pantalon_mezclilla();
 void prendas_particulares();
 void agregar_material();
-
 void consumo_express();
 void menu_usuario();
 void menu_almacenista();
 void menu_contador();
 void usuario();
-
+void calcular_consumo();
+void proceso_calculo();
+void ingreso_talla(int, char[]);
+void editMaterial(int);
+void printInventory();
 //funcion principal
 int main() {
     int tipo_usuario;
@@ -89,7 +92,7 @@ int main() {
 	estilos_txt = fopen("estilos.txt", "a");
 	if (estilos_txt == NULL) {
 		printf("Error al crear el archivo.");
-		return;
+		return 1;
 	}
     usuario();
     return 0;
@@ -446,7 +449,7 @@ void agregar_tipo_prenda()
     pulseConitnuar();
     limpiarPantalla();
 }
-void ingreso_talla(int id, char talla[5])
+void ingreso_talla(int id, char talla[3])
 {
 	// abrir el archivo de inventario
 	FILE *estilos_txt;
