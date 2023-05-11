@@ -25,6 +25,8 @@ struct Material{
 
 struct detalles_prenda
 {
+	int id;
+	char talla[5];
     float tela;
     float hilo;
     float bies;
@@ -404,13 +406,20 @@ void agregar_tipo_prenda()
     //ingreso de todas las tallas
     for(i=0;i<NUM_TALLAS;i++)
     {
-        ingreso_talla(tallas[i]);
+        ingreso_talla(id, tallas[i]);
     }
     pulseConitnuar();
     limpiarPantalla();
 }
-void ingreso_talla(char talla[5])
+void ingreso_talla(int id, char talla[5])
 {
+	// abrir el archivo de inventario
+	FILE *estilos_txt; 
+	estilos_txt = fopen("estilos.txt", "a");
+	if (estilos_txt == NULL) {
+		printf("Error al crear el archivo.");
+		return;
+	}
     struct detalles_prenda prenda;
     printf("\tDATOS DE LA TALLA %s\n", talla);
     printf("Ingrese la cantidad de tela para la talla %s:", talla);
@@ -427,8 +436,12 @@ void ingreso_talla(char talla[5])
     scanf("%f", &prenda.etiquetas);
     printf("Datos de la talla guardada con exito.\n\n");
 
-
-
+	// Guardar en archivo 
+	fprintf(estilos_txt, "%d %s %.2f %.2f %.2f %.2f %d %d\n", id, talla, prenda.tela, prenda.hilo, prenda.bies, prenda.elastico, prenda.botones, prenda.etiquetas);
+	
+	fclose(estilos_txt);
+	
+	printf("Datos de la talla guardada con exito.\n\n");
 }
 /*-------------------------------------------------------------------------
         FUNCION 3.- Calcular consumo.
