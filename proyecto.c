@@ -46,7 +46,7 @@ void menu_contador();
 void menu_usuario();
 //declaracion funciones globales
 void limpiarPantalla();
-void pulseConitnuar();
+void pulseContinuar();
 void titulo();
 //funciones de menu principal
 void inventario();
@@ -108,7 +108,7 @@ void limpiarPantalla() {
     #endif
 }
 
-void pulseConitnuar()
+void pulseContinuar()
 {
     printf("\nPulse cualquier tecla para continuar...\n");
     getch();
@@ -205,13 +205,13 @@ void usuario()
                 break;
             default:
                 printf("Opcion invalida. Por favor, elija una opcion valida.\n");
-                pulseConitnuar();
+                pulseContinuar();
                 limpiarPantalla();
         }
         if (error==1)
         {
             printf("ContraseÃ±a invalida. Por favor, elija una opcion valida.\n");
-            pulseConitnuar();
+            pulseContinuar();
             limpiarPantalla();
 
         }
@@ -246,7 +246,7 @@ void menu()
         // Validar que la opcion elegida sea vÃƒÂ¡lida
         if (opcion < 1 || opcion > 7) {
             printf("Opcion invalida. Por favor, elija una opcion valida.\n");
-            pulseConitnuar();
+            pulseContinuar();
             limpiarPantalla();
             continue;
         }
@@ -304,7 +304,7 @@ void menu_usuario()
         // Validar que la opcion elegida sea valida
         if (opcion < 1 || opcion > 4) {
             printf("Opcion invalida. Por favor, elija una opcion valida.\n");
-            pulseConitnuar();
+            pulseContinuar();
             limpiarPantalla();
             continue;
         }
@@ -347,7 +347,7 @@ void menu_almacenista()
         // Validar que la opcion elegida sea valida
         if (opcion < 1 || opcion > 3) {
             printf("Opcion invalida. Por favor, elija una opcion valida.\n");
-            pulseConitnuar();
+            pulseContinuar();
             limpiarPantalla();
             continue;
         }
@@ -390,7 +390,7 @@ void menu_contador()
         // Validar que la opcion elegida sea valida
         if (opcion < 1 || opcion > 4) {
             printf("Opcion invalida. Por favor, elija una opcion valida.\n");
-            pulseConitnuar();
+            pulseContinuar();
             limpiarPantalla();
             continue;
         }
@@ -424,7 +424,7 @@ void agregar_cliente()
     printf("Ingrese el nombre del cliente: ");
     gets(nombre_cliente);
     printf("Cliente agregado con exito.\n");
-    pulseConitnuar();
+    pulseContinuar();
     limpiarPantalla();
 }
 /*-------------------------------------------------------------------------
@@ -446,7 +446,7 @@ void agregar_tipo_prenda()
     {
         ingreso_talla(id, tallas[i]);
     }
-    pulseConitnuar();
+    pulseContinuar();
     limpiarPantalla();
 }
 void ingreso_talla(int id, char talla[3])
@@ -491,7 +491,7 @@ void calcular_consumo()
     printf("Por favor, ingrese el ID del estilo de la prenda:");
     scanf("%i", &id);
     proceso_calculo();
-    pulseConitnuar();
+    pulseContinuar();
     limpiarPantalla();
 }
 void proceso_calculo()
@@ -640,7 +640,7 @@ void printInventory() {
     }
 
     fclose(file);
-    pulseConitnuar();
+    pulseContinuar();
     limpiarPantalla();
 }
 
@@ -811,7 +811,7 @@ void playera_simple()
     total.botones=simpleCH.botones*numprendas[0]+simpleM.botones*numprendas[1]+simpleL.botones*numprendas[2]+simpleXL.botones*numprendas[3];
     total.etiquetas=simpleCH.etiquetas*numprendas[0]+simpleM.etiquetas*numprendas[1]+simpleL.etiquetas*numprendas[2]+simpleXL.etiquetas*numprendas[3];
     imprimir_reporte_express(total);
-    pulseConitnuar();
+    pulseContinuar();
 
 }
 void playera_polo()
@@ -841,7 +841,7 @@ void playera_polo()
     total.botones=simpleCH.botones*numprendas[0]+simpleM.botones*numprendas[1]+simpleL.botones*numprendas[2]+simpleXL.botones*numprendas[3];
     total.etiquetas=simpleCH.etiquetas*numprendas[0]+simpleM.etiquetas*numprendas[1]+simpleL.etiquetas*numprendas[2]+simpleXL.etiquetas*numprendas[3];
     imprimir_reporte_express(total);
-    pulseConitnuar();
+    pulseContinuar();
 }
 
 void short_deportivo()
@@ -871,7 +871,7 @@ void short_deportivo()
     total.botones=simpleCH.botones*numprendas[0]+simpleM.botones*numprendas[1]+simpleL.botones*numprendas[2]+simpleXL.botones*numprendas[3];
     total.etiquetas=simpleCH.etiquetas*numprendas[0]+simpleM.etiquetas*numprendas[1]+simpleL.etiquetas*numprendas[2]+simpleXL.etiquetas*numprendas[3];
     imprimir_reporte_express(total);
-    pulseConitnuar();
+    pulseContinuar();
 }
 void pantalon_mezclilla()
 {
@@ -900,7 +900,7 @@ void pantalon_mezclilla()
     total.botones=simpleCH.botones*numprendas[0]+simpleM.botones*numprendas[1]+simpleL.botones*numprendas[2]+simpleXL.botones*numprendas[3];
     total.etiquetas=simpleCH.etiquetas*numprendas[0]+simpleM.etiquetas*numprendas[1]+simpleL.etiquetas*numprendas[2]+simpleXL.etiquetas*numprendas[3];
     imprimir_reporte_express(total);
-    pulseConitnuar();
+    pulseContinuar();
 }
 void prendas_particulares()
 {
