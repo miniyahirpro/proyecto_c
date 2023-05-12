@@ -329,8 +329,10 @@ void menu_usuario()
         // Ejecutar la accion correspondiente a la opcion elegida
         switch(opcion) {
             case 1:
+                proceso_calculo();
                 break;
             case 2:
+                calcular_consumo_express();
                 break;
             case 3:
                 instrucciones();
@@ -414,6 +416,7 @@ void menu_contador()
         // Ejecutar la accion correspondiente a la opcion elegida
         switch(opcion) {
             case 1:
+                proceso_calculo();
                 break;
             case 2:
                 inventario();
