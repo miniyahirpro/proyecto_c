@@ -473,7 +473,7 @@ void ingreso_talla(int id, char talla[3])
     printf("Ingrese la cantidad de etiquetas para la talla %s:", talla);
     scanf("%f", &prenda.etiquetas);
 	// Guardar en archivo
-	fprintf(estilos_txt, "%d %s %.2f %.2f %.2f %.2f %d %d\n", id, talla, prenda.tela, prenda.hilo, prenda.bies, prenda.elastico, prenda.botones, prenda.etiquetas);
+	fprintf(estilos_txt, "%d;%s;%.2f;%.2f;%.2f;%.2f;%d;%d\n", id, talla, prenda.tela, prenda.hilo, prenda.bies, prenda.elastico, prenda.botones, prenda.etiquetas);
 
 	fclose(estilos_txt);
 
@@ -482,6 +482,40 @@ void ingreso_talla(int id, char talla[3])
 /*-------------------------------------------------------------------------
         FUNCION 3.- Calcular consumo.
 --------------------------------------------------------------------------*/
+//Funcion Para recuperar los estilos dependiendo del id proporcionado
+void recuperarEstilos(int id) {
+    FILE *archivo;
+    char linea[100];
+    detalles_prenda estilo;
+    int i = 0;
+
+    archivo = fopen("estilos.txt", "r");
+    if (archivo == NULL) {
+        printf("Error al abrir archivo\n");
+        exit(1);
+    }
+
+    while (fgets(linea, sizeof(linea), archivo) != NULL) {
+        sscanf(linea, "%d %s %f %f %f %f %d %d", &estilo.id, estilo.talla, &estilo.tela, &estilo.hilo, &estilo.bies, &estilo.elastico, &estilo.botones, &estilo.etiquetas);
+        if (estilo.id == id) {
+printf("Estilo %d - Talla %s:\n", estilo.id, estilo.talla);
+printf("Tela: %.2f\n", estilo.tela);
+            printf("Hilo: %.2f\n", estilo.hilo);
+            printf("Bies: %.2f\n", estilo.bies);
+            printf("Elastico: %.2f\n", estilo.elastico);
+            printf("Botones: %d\n", estilo.botones);
+            printf("Etiquetas: %d\n", estilo.etiquetas);
+            i++;
+        }
+    }
+
+    if (i == 0) {
+        printf("No se encontraron estilos con ID %d\n", id);
+    }
+
+    fclose(archivo);
+}
+
 void calcular_consumo()
 {
     int id;
@@ -490,7 +524,8 @@ void calcular_consumo()
     printf("====================================\n");
     printf("Por favor, ingrese el ID del estilo de la prenda:");
     scanf("%i", &id);
-    proceso_calculo();
+    recuperarEstilos(id)
+    // proceso_calculo();
     pulseContinuar();
     limpiarPantalla();
 }
