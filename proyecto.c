@@ -484,30 +484,65 @@ void ingreso_talla(int id, char talla[3])
 --------------------------------------------------------------------------*/
 //Funcion Para recuperar los estilos dependiendo del id proporcionado
 void recuperarEstilos(int id) {
+    struct detalles_prenda IDCH;
+    struct detalles_prenda IDM;
+    struct detalles_prenda IDL;
+    struct detalles_prenda IDXL;
     FILE *archivo;
     char linea[100];
-    detalles_prenda estilo;
-    int i = 0;
+    char talla[5];
+    float tela, hilo, bies, elastico;
+    int botones, etiquetas, idText;
 
-    archivo = fopen("estilos.txt", "r");
-    if (archivo == NULL) {
-        printf("Error al abrir archivo\n");
-        exit(1);
-    }
+    archivo = fopen("prendas.txt", "r");
 
-    while (fgets(linea, sizeof(linea), archivo) != NULL) {
-        sscanf(linea, "%d %s %f %f %f %f %d %d", &estilo.id, estilo.talla, &estilo.tela, &estilo.hilo, &estilo.bies, &estilo.elastico, &estilo.botones, &estilo.etiquetas);
-        if (estilo.id == id) {
-printf("Estilo %d - Talla %s:\n", estilo.id, estilo.talla);
-printf("Tela: %.2f\n", estilo.tela);
-            printf("Hilo: %.2f\n", estilo.hilo);
-            printf("Bies: %.2f\n", estilo.bies);
-            printf("Elastico: %.2f\n", estilo.elastico);
-            printf("Botones: %d\n", estilo.botones);
-            printf("Etiquetas: %d\n", estilo.etiquetas);
-            i++;
+    while (fgets(linea, 100, archivo) != NULL) {
+        sscanf(linea, "%[^';'];%[^';'];%f;%f;%f;%f;%d;%d", idText, talla, &tela, &hilo, &bies, &elastico, &botones, &etiquetas);
+        if (idText == id) {
+            if (strcmp(talla, "CH") == 0) {
+                IDCH.id = idText;
+                strcpy(IDCH.talla,talla);
+                IDCH.tela = tela;
+                IDCH.hilo = hilo;
+                IDCH.bies = bies;
+                IDCH.elastico = elastico;
+                IDCH.botones = botones;
+                IDCH.etiquetas = etiquetas;
+            } else if (strcmp(talla, "M") == 0) {
+                IDM.id = idText;
+                strcpy(IDM.talla,talla);
+                IDM.tela = tela;
+                IDM.hilo = hilo;
+                IDM.bies = bies;
+                IDM.elastico = elastico;
+                IDM.botones = botones;
+                IDM.etiquetas = etiquetas;
+            } else if (strcmp(talla, "L") == 0) {
+                IDL.id = idText;
+                strcpy(IDL.talla,talla);
+                IDL.tela = tela;
+                IDL.hilo = hilo;
+                IDL.bies = bies;
+                IDL.elastico = elastico;
+                IDL.botones = botones;
+                IDL.etiquetas = etiquetas;    
+            } else if (strcmp(talla, "XL") == 0) {
+                IDXL.id = idText;
+                strcpy(IDXL.talla,talla);
+                IDXL.tela = tela;
+                IDXL.hilo = hilo;
+                IDXL.bies = bies;
+                IDXL.elastico = elastico;
+                IDXL.botones = botones;
+                IDXL.etiquetas = etiquetas;    
+            }
         }
     }
+
+    fclose(archivo);
+}
+
+fclose(archivo);
 
     if (i == 0) {
         printf("No se encontraron estilos con ID %d\n", id);
