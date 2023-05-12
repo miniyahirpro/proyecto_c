@@ -15,6 +15,7 @@ fecha:
 #include <locale.h>
 #include<conio.h>
 #define NUM_TALLAS 4
+#define MAX_LINE_LENGTH 100
 //definicion de struct
 struct Material{
 	int id;
@@ -77,6 +78,7 @@ void ingreso_talla_particulares(struct detalles_prenda prendas[]);
 void editMaterial(int);
 void printInventory();
 void proceso_calculo();
+void obtenerDetallesPrenda(int, struct detalles_prenda[]);
 //funcion principal
 int main() {
     int tipo_usuario;
@@ -503,14 +505,39 @@ void proceso_calculo()
     //declaracion de varibles
     struct detalles_prenda datosprendas[NUM_TALLAS];
     int cantidades[NUM_TALLAS];
-
+    int id;
     //funcion para guardar los dato
-    /*cargar_datos_prendas(datosprendas);*/
+    printf("por favor, ingrese el id del estilo: ");
+    scanf("%i", &id);
+    obtenerDetallesPrenda(id, datosprendas);
     //cargar cantidades
     ingreso_cantidades(cantidades);
     //calcular e imprimir cantidades totales
     calcular_consumo(datosprendas, cantidades);
 
+}
+void obtenerDetallesPrenda(int id,struct detalles_prenda prenda[NUM_TALLAS]) {
+    FILE* estilos_txt;
+    char buffer[MAX_LINE_LENGTH];
+    int idArchivo;
+    int i = 0;
+
+    estilos_txt = fopen("estilos.txt", "r"); // Abre el archivo en modo lectura
+    if (estilos_txt == NULL) {
+        printf("Error al abrir el archivo.\n");
+        return;
+    }
+
+    while (fgets(buffer, MAX_LINE_LENGTH, estilos_txt)) {
+        sscanf(buffer, "%d", &idArchivo); // Lee el primer número de cada línea
+
+        if (idArchivo == id && i < NUM_TALLAS) {
+            sscanf(buffer, "%*d%f%f%f%f%d%d", prenda[i].tela, prenda[i].hilo, prenda[i].bies, prenda[i].elastico, prenda[i].botones, prenda[i].etiquetas); // Guarda los valores en la estructura
+            i++;
+        }
+    }
+
+    fclose(estilos_txt); // Cierra el archivo
 }
 /*-------------------------------------------------------------------------
         FUNCION 4.- inventario.
